@@ -1,48 +1,88 @@
 body {
   background-color: #345;
-  font: 14px Verdana, sans-serif;
-  color: white;
+  font: 16px Verdana, sans-serif;
+  color: #fafaff;
 }
 
-h1 {
-  font: 5em "Sigmar One", cursive;
-  line-height: 14px;
-  color: #FF9
+.form__title {
+  margin: 10px auto;
+
+  font: 4rem "Sigmar One", cursive;
+  text-align: center;
+
+  color: #FF9;
 }
 
-section.container {
+.form {
   max-width: 400px;
-  margin: 30px auto;
+  margin: 10px auto;
 
 }
 
-input {
+.field__label {
+  font-weight: 700;
+  line-height: 1.7;
+  letter-spacing: .1rem;
+}
+
+.input {
+  height: 1.5rem;
   width: 100%;
-  padding-left: 3px;
+  margin-bottom: 10px;
+  padding: .5rem;
+
+  font-weight: 600;
+  color: #345;
+
   border: 2px solid #234;
-  box-shadow: 1px 1px 1px #234;
+  box-shadow: 1px 1px 2px #234;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  margin-bottom: 6px;
 }
 
-input.invalid {
-  border: 2px solid rgba(255, 0, 0, 0.7);
+.input.invalid {
+  border: 2px solid rgba(220, 20, 60, 0.7);
 }
 
-button {
+.error__message {
+  color: #dc143c;
+}
+
+.submit__button {
+  width: 30%;
   display: block;
   margin: 10px auto;
+
   font-size: 20px;
+  font-weight: 600;
   text-align: center;
-  width: 20%;
+
+  border-color: transparent;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  box-shadow: 2px 2px 4px #dfd;
+  cursor: pointer;
+
+  transition: transform .3s linear;
 }
 
-span {
-  color: #FF9;
+.submit__button:hover,
+.submit__button:focus {
+  color: #fafaff;
 
+  background-color: #234;
+  /* box-shadow: 2px 2px 4px #234; */
+
+  transform: scale(.95);
+}
+
+.submit__button:disabled {
+  color: #c0c0cc;
+
+  background-color: #fafaff;
+  border-color: transparent;
+
+  transform: none;
 }
