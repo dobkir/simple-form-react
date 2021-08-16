@@ -41,11 +41,19 @@ body {
   border-radius: 5px;
 }
 
+.input:focus {
+  border-color: #8e9be9;
+}
+
 .input.invalid {
   border: 2px solid rgba(220, 20, 60, 0.7);
 }
 
 .error__message {
+  font-size: .8rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: normal;
   color: #dc143c;
 }
 
@@ -85,4 +93,11 @@ body {
   border-color: transparent;
 
   transform: none;
+}
+
+.thanks {
+  margin: 20px auto;
+
+  text-align: center;
+  line-height: 1.4;
 }
