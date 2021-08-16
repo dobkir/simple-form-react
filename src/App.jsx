@@ -28,9 +28,10 @@ function App() {
       .then(data => {
         alert(
           "The server received the following data from you: \n" +
-          data.record.formData.map(field => {
-            return `${field}; \n`;
-          }).join(''));
+          Object.entries(data.record.formData).map(([key, value]) => {
+            return `${key}: ${value}, \n`;
+          }).join('')
+        );
       })
       .catch(error => alert(`Oops, any problem here: ${error.name}. ${error.message}`));
   };
@@ -52,9 +53,17 @@ function App() {
 
   const [formValid, setFormValid] = useState(false);
 
-  const [formData, setFormData] = useState([]);
-  const getCurrentData = (currentValue) => {
-    return setFormData(prevData => [...prevData, currentValue]);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    repeatPassword: ""
+  });
+  const getCurrentData = (currentName, currentValue) => {
+    setFormData({
+      ...formData,
+      [currentName]: currentValue
+    });
   }
 
 
@@ -71,18 +80,18 @@ function App() {
     if (event.target.value.length > 14) {
       setUsernameError("Username must be less than fourteen characters")
     } else {
-      getCurrentData(event.target.value);
+      getCurrentData(event.target.name, event.target.value);
       setUsernameError("");
     }
   }
 
   const emailValidator = (event) => {
     setEmail(event.target.value);
-    const res = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const res = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!res.test(String(event.target.value).toLowerCase())) {
       setEmailError("Email is incorrect");
     } else {
-      getCurrentData(event.target.value);
+      getCurrentData(event.target.name, event.target.value);
       setEmailError("");
     }
   };
@@ -94,7 +103,7 @@ function App() {
     } else if (event.target.value.length > 14) {
       setPasswordError("Password must be less than fourteen characters");
     } else {
-      getCurrentData(event.target.value);
+      getCurrentData(event.target.name, event.target.value);
       setPasswordError("");
     }
   };
@@ -104,7 +113,7 @@ function App() {
     if (password !== event.target.value) {
       setRepeatPasswordError("Values do not match");
     } else {
-      getCurrentData(event.target.value);
+      getCurrentData(event.target.name, event.target.value);
       setRepeatPasswordError("");
     }
   }
