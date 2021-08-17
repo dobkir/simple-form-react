@@ -36,10 +36,12 @@ function App() {
       .catch(error => alert(`Oops, any problem here: ${error.name}. ${error.message}`));
   };
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    repeatPassword: ""
+  });
 
   const [usernameVisited, setUsernameVisited] = useState(false);
   const [emailVisited, setEmailVisited] = useState(false);
@@ -53,19 +55,12 @@ function App() {
 
   const [formValid, setFormValid] = useState(false);
 
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    repeatPassword: ""
-  });
-  const getCurrentData = (currentName, currentValue) => {
+  const setCurrentData = (currentName, currentValue) => {
     setFormData({
       ...formData,
       [currentName]: currentValue
     });
   }
-
 
   useEffect(() => {
     if (usernameError || emailError || passwordError || repeatPasswordError) {
@@ -76,44 +71,51 @@ function App() {
   }, [usernameError, emailError, passwordError, repeatPasswordError]);
 
   const usernameValidator = (event) => {
-    setUsername(event.target.value);
-    if (event.target.value.length > 14) {
+    setCurrentData(event.target.name, event.target.value);
+    if (!event.target.value.length) {
+      setUsernameError("The Username field cannot be empty")
+    } else if (event.target.value.length > 14) {
       setUsernameError("Username must be less than fourteen characters")
     } else {
-      getCurrentData(event.target.name, event.target.value);
       setUsernameError("");
     }
   }
 
   const emailValidator = (event) => {
-    setEmail(event.target.value);
+    setCurrentData(event.target.name, event.target.value);
     const res = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!res.test(String(event.target.value).toLowerCase())) {
+
+    if (!event.target.value.length) {
+      setEmailError("The Email field cannot be empty")
+    } else if (!res.test(String(event.target.value).toLowerCase())) {
       setEmailError("Email is incorrect");
     } else {
-      getCurrentData(event.target.name, event.target.value);
       setEmailError("");
     }
   };
 
   const passwordValidator = (event) => {
-    setPassword(event.target.value);
-    if (event.target.value.length < 5) {
+    setCurrentData(event.target.name, event.target.value);
+    (event.target.value !== formData.repeatPassword) && setRepeatPasswordError("Values don't match");
+
+    if (!event.target.value.length) {
+      setPasswordError("The Password field cannot be empty");
+    } else if (event.target.value.length < 5) {
       setPasswordError("Password must be more than five characters");
     } else if (event.target.value.length > 14) {
       setPasswordError("Password must be less than fourteen characters");
     } else {
-      getCurrentData(event.target.name, event.target.value);
       setPasswordError("");
     }
+
   };
 
   const repeatPasswordValidator = (event) => {
-    setRepeatPassword(event.target.value);
-    if (password !== event.target.value) {
-      setRepeatPasswordError("Values do not match");
+    setCurrentData(event.target.name, event.target.value);
+
+    if (formData.password !== event.target.value) {
+      setRepeatPasswordError("Values don't match");
     } else {
-      getCurrentData(event.target.name, event.target.value);
       setRepeatPasswordError("");
     }
   }
@@ -152,7 +154,7 @@ function App() {
             type="text"
             placeholder="Enter your name..."
             onBlur={event => blurHandler(event)}
-            value={username}
+            value={formData.username}
             onChange={event => usernameValidator(event)}
           />
         </li>
@@ -168,7 +170,7 @@ function App() {
             placeholder="Enter your email..."
             onBlur={event =>
               blurHandler(event)}
-            value={email}
+            value={formData.email}
             onChange={event => emailValidator(event)}
           />
         </li>
@@ -183,7 +185,7 @@ function App() {
             type="password"
             placeholder="Enter your password..."
             onBlur={event => blurHandler(event)}
-            value={password}
+            value={formData.password}
             onChange={event => passwordValidator(event)}
           />
         </li>
@@ -198,7 +200,7 @@ function App() {
             type="password"
             placeholder="Repeat your password..."
             onBlur={event => blurHandler(event)}
-            value={repeatPassword}
+            value={formData.repeatPassword}
             onChange={event => repeatPasswordValidator(event)}
           />
         </li>
@@ -208,9 +210,9 @@ function App() {
       </ul>
 
       <p className="thanks">
-        Thank you for signing up, <span>{username}</span>! <br />
+        Thank you for signing up, <span>{formData.username}</span>! <br />
         We will send you a confirmation e-mail to <br />
-        <span>{email}</span> :)
+        <span>{formData.email}</span> :)
       </p>
       input data:
       <pre>{JSON.stringify(formData, 0, 2)}</pre>
