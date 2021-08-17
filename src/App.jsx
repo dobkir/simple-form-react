@@ -1,39 +1,12 @@
 import { useEffect, useState } from "react";
+import { api } from "./api";
 import "./App.css";
 
 function App() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    fetch('https://api.jsonbin.io/v3/b', {
-      method: 'POST',
-      body: JSON.stringify({ formData }),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'X-Master-Key': '$2b$10$65lTDH3r4YCHqsLIzTJGZ.fIzJmJPTL24xO2Ol3sH9.saBA4cwWLW'
-      })
-    })
-      .then(response => {
-        // Let's check the response code
-        if (!response.ok) {
-          // If the server returned a response code out of range [200, 299]
-          return Promise.reject(new Error(
-            'Response failed: ' + response.status + ' (' + response.statusText + ')'
-          ));
-        }
-        // Next, we will only use JSON from the response body
-        return response.json();
-      })
-      // Let's check what form data was submitted to the server (remove it in the work version)
-      .then(data => {
-        alert(
-          "The server received the following data from you: \n" +
-          Object.entries(data.record.formData).map(([key, value]) => {
-            return `${key}: ${value}, \n`;
-          }).join('')
-        );
-      })
-      .catch(error => alert(`Oops, any problem here: ${error.name}. ${error.message}`));
+    api(formData);
   };
 
   const [formData, setFormData] = useState({
@@ -96,7 +69,12 @@ function App() {
 
   const passwordValidator = (event) => {
     setCurrentData(event.target.name, event.target.value);
-    (event.target.value !== formData.repeatPassword) && setRepeatPasswordError("Values don't match");
+
+    if (event.target.value !== formData.repeatPassword) {
+      setRepeatPasswordError("Values don't match");
+    } else {
+      setPasswordError("");
+    }
 
     if (!event.target.value.length) {
       setPasswordError("The Password field cannot be empty");
