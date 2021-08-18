@@ -13,104 +13,134 @@ function App() {
     username: "",
     email: "",
     password: "",
-    repeatPassword: ""
+    repeatPassword: "",
   });
 
-  const [usernameVisited, setUsernameVisited] = useState(false);
-  const [emailVisited, setEmailVisited] = useState(false);
-  const [passwordVisited, setPasswordVisited] = useState(false);
-  const [repeatPasswordVisited, setRepeatPasswordVisited] = useState(false);
+  const [visitedField, setVisitedField] = useState({
+    username: false,
+    email: false,
+    password: false,
+    repeatPassword: false,
+  });
 
-  const [usernameError, setUsernameError] = useState("The Username field cannot be empty");
-  const [emailError, setEmailError] = useState("The Email field cannot be empty");
-  const [passwordError, setPasswordError] = useState("The Password field cannot be empty");
-  const [repeatPasswordError, setRepeatPasswordError] = useState("The Repeat Password field cannot be empty");
+  const [validationError, setValidationError] = useState({
+    username: "The Username field cannot be empty",
+    email: "The Email field cannot be empty",
+    password: "The Password field cannot be empty",
+    repeatPassword: "The Repeat Password field cannot be empty",
+  })
 
   const [formValid, setFormValid] = useState(false);
 
   const setCurrentData = (currentName, currentValue) => {
     setFormData({
       ...formData,
-      [currentName]: currentValue
+      [currentName]: currentValue,
+    });
+  }
+
+  const setCurrentVisitedField = (currentName, currentState) => {
+    setVisitedField({
+      ...visitedField,
+      [currentName]: currentState,
+    });
+  }
+
+  const setCurrentValidationError = (currentName, currentError) => {
+    setValidationError({
+      ...validationError,
+      [currentName]: currentError,
     });
   }
 
   useEffect(() => {
-    if (usernameError || emailError || passwordError || repeatPasswordError) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
+    for (let value of Object.values(validationError)) {
+      if (value) {
+        setFormValid(false);
+      } else {
+        setFormValid(true);
+      }
     }
-  }, [usernameError, emailError, passwordError, repeatPasswordError]);
+  }, [validationError]);
 
   const usernameValidator = (event) => {
-    setCurrentData(event.target.name, event.target.value);
-    if (!event.target.value.length) {
-      setUsernameError("The Username field cannot be empty")
-    } else if (event.target.value.length > 14) {
-      setUsernameError("Username must be less than fourteen characters")
+    let name = event.target.name;
+    let value = event.target.value;
+
+    setCurrentData(name, value);
+
+    if (!value.length) {
+      setCurrentValidationError(name, "The Username field cannot be empty")
+    } else if (value.length > 14) {
+      setCurrentValidationError(name, "Username must be less than fourteen characters")
     } else {
-      setUsernameError("");
+      setCurrentValidationError(name, "");
     }
   }
 
   const emailValidator = (event) => {
-    setCurrentData(event.target.name, event.target.value);
+    let name = event.target.name;
+    let value = event.target.value;
+
+    setCurrentData(name, value);
+
     const res = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if (!event.target.value.length) {
-      setEmailError("The Email field cannot be empty")
-    } else if (!res.test(String(event.target.value).toLowerCase())) {
-      setEmailError("Email is incorrect");
+    if (!value.length) {
+      setCurrentValidationError(name, "The Email field cannot be empty")
+    } else if (!res.test(String(value).toLowerCase())) {
+      setCurrentValidationError(name, "Email is incorrect");
     } else {
-      setEmailError("");
+      setCurrentValidationError(name, "");
     }
   };
 
   const passwordValidator = (event) => {
-    setCurrentData(event.target.name, event.target.value);
+    let name = event.target.name;
+    let value = event.target.value;
 
-    if (event.target.value !== formData.repeatPassword) {
-      setRepeatPasswordError("Values don't match");
-    } else {
-      setPasswordError("");
+    setCurrentData(name, value);
+
+    if (value !== formData.repeatPassword) {
+      setCurrentValidationError(name, "Values don't match");
     }
-
-    if (!event.target.value.length) {
-      setPasswordError("The Password field cannot be empty");
-    } else if (event.target.value.length < 5) {
-      setPasswordError("Password must be more than five characters");
-    } else if (event.target.value.length > 14) {
-      setPasswordError("Password must be less than fourteen characters");
+    if (!value.length) {
+      setCurrentValidationError(name, "The Password field cannot be empty");
+    } else if (value.length < 5) {
+      setCurrentValidationError(name, "Password must be more than five characters");
+    } else if (value.length > 14) {
+      setCurrentValidationError(name, "Password must be less than fourteen characters");
     } else {
-      setPasswordError("");
+      setCurrentValidationError(name, "");
     }
-
   };
 
   const repeatPasswordValidator = (event) => {
-    setCurrentData(event.target.name, event.target.value);
+    let name = event.target.name;
+    let value = event.target.value;
 
-    if (formData.password !== event.target.value) {
-      setRepeatPasswordError("Values don't match");
+    setCurrentData(name, value);
+
+    if (value !== formData.password) {
+      setCurrentValidationError(name, "Values don't match");
     } else {
-      setRepeatPasswordError("");
+      setCurrentValidationError(name, "");
     }
   }
 
   const blurHandler = (event) => {
     switch (event.target.name) {
       case 'username':
-        setUsernameVisited(true);
+        setCurrentVisitedField('username', true);
         break;
       case 'email':
-        setEmailVisited(true);
+        setCurrentVisitedField('email', true);
         break;
       case 'password':
-        setPasswordVisited(true);
+        setCurrentVisitedField('password', true);
         break;
       case 'repeatPassword':
-        setRepeatPasswordVisited(true);
+        setCurrentVisitedField('repeatPassword', true);
         break;
       default:
         alert("Something incomprehensible here :-O");
@@ -123,11 +153,11 @@ function App() {
       <ul>
         <li>
           <label className="field__label">
-            Username: {(usernameVisited && usernameError) &&
-              <span className="error__message">{usernameError}</span>}
+            Username: {(visitedField.username && validationError.username) &&
+              <span className="error__message">{validationError.username}</span>}
           </label>
           <input
-            className={(usernameVisited && usernameError) ? "input invalid" : "input"}
+            className={(visitedField.username && validationError.username) ? "input invalid" : "input"}
             name="username"
             type="text"
             placeholder="Enter your name..."
@@ -138,48 +168,48 @@ function App() {
         </li>
         <li>
           <label className="field__label">
-            E-mail: {(emailVisited && emailError) &&
-              <span className="error__message">{emailError}</span>}
+            E-mail: {(visitedField.email && validationError.email) &&
+              <span className="error__message">{validationError.email}</span>}
           </label>
           <input
-            className={(emailVisited && emailError) ? "input invalid" : "input"}
+            className={(visitedField.email && validationError.email) ? "input invalid" : "input"}
             name="email"
             type="text"
             placeholder="Enter your email..."
             onBlur={event =>
               blurHandler(event)}
             value={formData.email}
-            onChange={event => emailValidator(event)}
+            onInput={event => emailValidator(event)}
           />
         </li>
         <li>
           <label className="field__label">
-            Password: {(passwordVisited && passwordError) &&
-              <span className="error__message">{passwordError}</span>}
+            Password: {(visitedField.password && validationError.password) &&
+              <span className="error__message">{validationError.password}</span>}
           </label>
           <input
-            className={(passwordVisited && passwordError) ? "input invalid" : "input"}
+            className={(visitedField.password && validationError.password) ? "input invalid" : "input"}
             name="password"
             type="password"
             placeholder="Enter your password..."
             onBlur={event => blurHandler(event)}
             value={formData.password}
-            onChange={event => passwordValidator(event)}
+            onInput={event => passwordValidator(event)}
           />
         </li>
         <li>
           <label className="field__label">
-            Repeat Password: {(repeatPasswordVisited && repeatPasswordError) &&
-              <span className="error__message">{repeatPasswordError}</span>}
+            Repeat Password: {(visitedField.repeatPassword && validationError.repeatPassword) &&
+              <span className="error__message">{validationError.repeatPassword}</span>}
           </label>
           <input
-            className={(repeatPasswordVisited && repeatPasswordError) ? "input invalid" : "input"}
+            className={(visitedField.repeatPassword && validationError.repeatPassword) ? "input invalid" : "input"}
             name="repeatPassword"
             type="password"
             placeholder="Repeat your password..."
             onBlur={event => blurHandler(event)}
             value={formData.repeatPassword}
-            onChange={event => repeatPasswordValidator(event)}
+            onInput={event => repeatPasswordValidator(event)}
           />
         </li>
         <li>
