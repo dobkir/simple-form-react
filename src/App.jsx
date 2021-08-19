@@ -54,14 +54,23 @@ function App() {
   }
 
   useEffect(() => {
-    for (let value of Object.values(validationError)) {
-      if (value) {
-        setFormValid(false);
-      } else {
-        setFormValid(true);
-      }
+    if (validationError.username
+      || validationError.email
+      || validationError.password
+      || validationError.repeatPassword
+    ) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
     }
-  }, [validationError]);
+  },
+    [
+      validationError.username,
+      validationError.email,
+      validationError.password,
+      validationError.repeatPassword
+    ]
+  );
 
   const usernameValidator = (event) => {
     let name = event.target.name;
@@ -101,15 +110,17 @@ function App() {
 
     setCurrentData(name, value);
 
-    if (value !== formData.repeatPassword) {
-      setCurrentValidationError(name, "Values don't match");
-    }
+
     if (!value.length) {
       setCurrentValidationError(name, "The Password field cannot be empty");
     } else if (value.length < 5) {
       setCurrentValidationError(name, "Password must be more than five characters");
     } else if (value.length > 14) {
       setCurrentValidationError(name, "Password must be less than fourteen characters");
+    } else if (value !== formData.repeatPassword) {
+      setCurrentValidationError(name, "The value does not match the value of the confirmation field");
+    } else if (value === formData.repeatPassword) {
+      setCurrentValidationError(name, "");
     } else {
       setCurrentValidationError(name, "");
     }
@@ -121,12 +132,16 @@ function App() {
 
     setCurrentData(name, value);
 
-    if (value !== formData.password) {
-      setCurrentValidationError(name, "Values don't match");
+    if (!value.length) {
+      setCurrentValidationError(name, "The Password field cannot be empty");
+    } else if (value !== formData.password) {
+      setCurrentValidationError(name, "The value does not match the value of the password field");
+    } else if (value === formData.password) {
+      setCurrentValidationError(name, "");
     } else {
       setCurrentValidationError(name, "");
     }
-  }
+  };
 
   const blurHandler = (event) => {
     switch (event.target.name) {
