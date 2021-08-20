@@ -1,234 +1,93 @@
-import { useEffect, useState } from "react";
+import { useInput } from "./customHooks/useInput";
 import { api } from "./api";
 import "./App.css";
 
 function App() {
+  const username = useInput("", { isEmpty: true, minLength: 5, maxLength: 50 });
+  const email = useInput("", { isEmpty: true, minLength: 5, maxLength: 50, isEmailError: false });
+  const password = useInput("", { isEmpty: true, minLength: 5, maxLength: 50 });
+  const confirmation = useInput("", { isEmpty: true, minLength: 5, maxLength: 50 });
+
+  const formData = {
+    username: username.value,
+    email: email.value,
+    password: password.value,
+    confirmation: confirmation.value,
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
     api(formData);
   };
 
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    repeatPassword: "",
-  });
-
-  const [visitedField, setVisitedField] = useState({
-    username: false,
-    email: false,
-    password: false,
-    repeatPassword: false,
-  });
-
-  const [validationError, setValidationError] = useState({
-    username: "The Username field cannot be empty",
-    email: "The Email field cannot be empty",
-    password: "The Password field cannot be empty",
-    repeatPassword: "The Repeat Password field cannot be empty",
-  })
-
-  const [formValid, setFormValid] = useState(false);
-
-  const setCurrentData = (currentName, currentValue) => {
-    setFormData({
-      ...formData,
-      [currentName]: currentValue,
-    });
-  }
-
-  const setCurrentVisitedField = (currentName, currentState) => {
-    setVisitedField({
-      ...visitedField,
-      [currentName]: currentState,
-    });
-  }
-
-  const setCurrentValidationError = (currentName, currentError) => {
-    setValidationError({
-      ...validationError,
-      [currentName]: currentError,
-    });
-  }
-
-  useEffect(() => {
-    if (validationError.username
-      || validationError.email
-      || validationError.password
-      || validationError.repeatPassword
-    ) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
-    }
-  },
-    [
-      validationError.username,
-      validationError.email,
-      validationError.password,
-      validationError.repeatPassword
-    ]
-  );
-
-  const usernameValidator = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-
-    setCurrentData(name, value);
-
-    if (!value.length) {
-      setCurrentValidationError(name, "The Username field cannot be empty")
-    } else if (value.length > 14) {
-      setCurrentValidationError(name, "Username must be less than fourteen characters")
-    } else {
-      setCurrentValidationError(name, "");
-    }
-  }
-
-  const emailValidator = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-
-    setCurrentData(name, value);
-
-    const res = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    if (!value.length) {
-      setCurrentValidationError(name, "The Email field cannot be empty")
-    } else if (!res.test(String(value).toLowerCase())) {
-      setCurrentValidationError(name, "Email is incorrect");
-    } else {
-      setCurrentValidationError(name, "");
-    }
-  };
-
-  const passwordValidator = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-
-    setCurrentData(name, value);
-
-
-    if (!value.length) {
-      setCurrentValidationError(name, "The Password field cannot be empty");
-    } else if (value.length < 5) {
-      setCurrentValidationError(name, "Password must be more than five characters");
-    } else if (value.length > 14) {
-      setCurrentValidationError(name, "Password must be less than fourteen characters");
-    } else if (value !== formData.repeatPassword) {
-      setCurrentValidationError(name, "The value does not match the value of the confirmation field");
-    } else if (value === formData.repeatPassword) {
-      setCurrentValidationError(name, "");
-    } else {
-      setCurrentValidationError(name, "");
-    }
-  };
-
-  const repeatPasswordValidator = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-
-    setCurrentData(name, value);
-
-    if (!value.length) {
-      setCurrentValidationError(name, "The Password field cannot be empty");
-    } else if (value !== formData.password) {
-      setCurrentValidationError(name, "The value does not match the value of the password field");
-    } else if (value === formData.password) {
-      setCurrentValidationError(name, "");
-    } else {
-      setCurrentValidationError(name, "");
-    }
-  };
-
-  const blurHandler = (event) => {
-    switch (event.target.name) {
-      case 'username':
-        setCurrentVisitedField('username', true);
-        break;
-      case 'email':
-        setCurrentVisitedField('email', true);
-        break;
-      case 'password':
-        setCurrentVisitedField('password', true);
-        break;
-      case 'repeatPassword':
-        setCurrentVisitedField('repeatPassword', true);
-        break;
-      default:
-        alert("Something incomprehensible here :-O");
-    }
-  };
-
   return (
     <form className="form" name="registration_form" onSubmit={onSubmit}>
-      <h1 className="form__title">Register!</h1>
+      <h1 className="form__title" > Register!</h1 >
       <ul>
         <li>
           <label className="field__label">
-            Username: {(visitedField.username && validationError.username) &&
-              <span className="error__message">{validationError.username}</span>}
+            Username: {(username.isVisited && (username.isEmpty || username.minLength || username.maxLength)) &&
+              <span className="error__message">{username.errorMessage}</span>}
           </label>
           <input
-            className={(visitedField.username && validationError.username) ? "input invalid" : "input"}
+            className={(username.isVisited && (username.isEmpty || username.minLength || username.maxLength)) ? "input invalid" : "input"}
             name="username"
             type="text"
             placeholder="Enter your name..."
-            onBlur={event => blurHandler(event)}
-            value={formData.username}
-            onChange={event => usernameValidator(event)}
+            value={username.value}
+            onChange={event => username.onChange(event)}
+            onBlur={event => username.onBlur(event)}
           />
         </li>
         <li>
           <label className="field__label">
-            E-mail: {(visitedField.email && validationError.email) &&
-              <span className="error__message">{validationError.email}</span>}
+            E-mail: {(email.isVisited && (email.isEmpty || email.minLength || email.maxLength || email.isEmailError)) &&
+              <span className="error__message">{email.errorMessage}</span>}
           </label>
           <input
-            className={(visitedField.email && validationError.email) ? "input invalid" : "input"}
+            className={(email.isVisited && (email.isEmpty || email.minLength || email.maxLength || email.isEmailError)) ? "input invalid" : "input"}
             name="email"
             type="text"
             placeholder="Enter your email..."
-            onBlur={event =>
-              blurHandler(event)}
-            value={formData.email}
-            onInput={event => emailValidator(event)}
+            value={email.value}
+            onChange={event => email.onChange(event)}
+            onBlur={event => email.onBlur(event)}
           />
         </li>
         <li>
           <label className="field__label">
-            Password: {(visitedField.password && validationError.password) &&
-              <span className="error__message">{validationError.password}</span>}
+            Password: {(password.isVisited && (password.isEmpty || password.minLength || password.maxLength)) &&
+              <span className="error__message">{password.errorMessage}</span>}
           </label>
           <input
-            className={(visitedField.password && validationError.password) ? "input invalid" : "input"}
+            className={(password.isVisited && (password.isEmpty || password.minLength || password.maxLength)) ? "input invalid" : "input"}
             name="password"
             type="password"
             placeholder="Enter your password..."
-            onBlur={event => blurHandler(event)}
-            value={formData.password}
-            onInput={event => passwordValidator(event)}
+            value={password.value}
+            onChange={event => password.onChange(event)}
+            onBlur={event => password.onBlur(event)}
           />
         </li>
         <li>
           <label className="field__label">
-            Repeat Password: {(visitedField.repeatPassword && validationError.repeatPassword) &&
-              <span className="error__message">{validationError.repeatPassword}</span>}
+            Confirmation: {(confirmation.isVisited && (confirmation.isEmpty || confirmation.minLength || confirmation.maxLength)) &&
+              <span className="error__message">{confirmation.errorMessage}</span>}
+            {(confirmation.isVisited && (confirmation.value !== password.value)) &&
+              <span className="error__message">Must match</span>}
           </label>
           <input
-            className={(visitedField.repeatPassword && validationError.repeatPassword) ? "input invalid" : "input"}
-            name="repeatPassword"
+            className={(confirmation.isVisited && (confirmation.isEmpty || confirmation.minLength || confirmation.maxLength)) ? "input invalid" : "input"}
+            name="confirmation"
             type="password"
             placeholder="Repeat your password..."
-            onBlur={event => blurHandler(event)}
-            value={formData.repeatPassword}
-            onInput={event => repeatPasswordValidator(event)}
+            value={confirmation.value}
+            onChange={event => confirmation.onChange(event)}
+            onBlur={event => confirmation.onBlur(event)}
           />
         </li>
         <li>
-          <button className="submit__button" type="submit" disabled={!formValid} >Go!</button>
+          <button className="submit__button" type="submit" disabled={!username.inputValid} >Go!</button>
         </li>
       </ul>
 
