@@ -6,7 +6,7 @@ function App() {
   const username = useInput("", { isEmpty: true, minLength: 5, maxLength: 50 });
   const email = useInput("", { isEmpty: true, minLength: 5, maxLength: 50, isEmailError: false });
   const password = useInput("", { isEmpty: true, minLength: 5, maxLength: 50 });
-  const confirmation = useInput("", { isEmpty: true, minLength: 5, maxLength: 50 });
+  const confirmation = useInput("", {});
 
   const formData = {
     username: username.value,
@@ -71,13 +71,12 @@ function App() {
         </li>
         <li>
           <label className="field__label">
-            Confirmation: {(confirmation.isVisited && (confirmation.isEmpty || confirmation.minLength || confirmation.maxLength)) &&
-              <span className="error__message">{confirmation.errorMessage}</span>}
+            Confirmation:
             {(confirmation.isVisited && (confirmation.value !== password.value)) &&
               <span className="error__message">Must match</span>}
           </label>
           <input
-            className={(confirmation.isVisited && (confirmation.isEmpty || confirmation.minLength || confirmation.maxLength)) ? "input invalid" : "input"}
+            className={(confirmation.isVisited && (confirmation.value !== password.value)) ? "input invalid" : "input"}
             name="confirmation"
             type="password"
             placeholder="Repeat your password..."
@@ -87,7 +86,7 @@ function App() {
           />
         </li>
         <li>
-          <button className="submit__button" type="submit" disabled={!username.inputValid} >Go!</button>
+          <button className="submit__button" type="submit" disabled={!username.inputValid} ></button>
         </li>
       </ul>
 

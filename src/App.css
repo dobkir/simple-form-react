@@ -85,6 +85,14 @@ body {
   transform: scale(.95);
 }
 
+.submit__button::after {
+  content: "Go!";
+}
+
+.submit__button:hover::after {
+  content: "Faster!";
+}
+
 .submit__button:disabled {
   color: #c0c0cc;
 
