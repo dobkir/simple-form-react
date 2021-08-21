@@ -1,4 +1,4 @@
-export const Api = (fetchedData, toggleIsFetching) => {
+export const api = (fetchedData, toggleIsFetching) => {
   toggleIsFetching(true);
   fetch('https://api.jsonbin.io/v3/b', {
     method: 'POST',

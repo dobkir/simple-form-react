@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useInput } from "./customHooks/useInput";
-import { Api as api } from "./Api";
+import { api } from "./api";
 import "./App.css";
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
       onSubmit={onSubmit}
       onReset={onReset}>
       <h1 className="form__title">Register!</h1>
-      {isFetching && <img className="spinner" src="Spinner_iPhone-2.gif" alt="spinner" />}
+      {isFetching && <img className="spinner" src="loading-spinner.gif" alt="spinner" />}
       <ul>
         <li>
           <label className="field__label">
