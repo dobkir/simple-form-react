@@ -4,20 +4,25 @@ import { useValidation } from "./useValidation";
 export const useInput = (initialValue, validations) => {
   const [value, setValue] = useState(initialValue);
   const [isVisited, setVisited] = useState(false);
-  const valid = useValidation(value, validations)
+  const valid = useValidation(value, validations);
 
   const onChange = (event) => {
     setValue(event.target.value)
-  }
+  };
 
-  const onBlur = (event) => {
+  const onBlur = () => {
     setVisited(true)
-  }
+  };
+
+  const onReset = () => {
+    setValue(initialValue)
+  };
 
   return {
     value,
     onChange,
     onBlur,
+    onReset,
     isVisited,
     ...valid,
   }

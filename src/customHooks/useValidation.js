@@ -38,7 +38,7 @@ export const useValidation = (value, validations) => {
           break;
         case "isEmailError":
           const res = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          if (!res.test(String(value).toLowerCase())) {
+          if (value && (!res.test(String(value).toLowerCase()))) {
             setEmailError(true);
             setErrorMessage("It's not email, dude!");
           } else {

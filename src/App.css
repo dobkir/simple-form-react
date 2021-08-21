@@ -4,6 +4,15 @@ body {
   color: #fafaff;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 0 10px;
+}
+
 .form__title {
   margin: 10px auto;
 
@@ -13,10 +22,10 @@ body {
   color: #FF9;
 }
 
-.form {
-  max-width: 400px;
-  margin: 10px auto;
-
+@media screen and (max-width: 375px) {
+  .form__title {
+    font-size: 3.5rem;
+  }
 }
 
 .field__label {
@@ -27,7 +36,7 @@ body {
 
 .input {
   height: 1.5rem;
-  width: 100%;
+  width: 95%;
   margin-bottom: 10px;
   padding: .5rem;
 
@@ -57,7 +66,11 @@ body {
   color: #dc143c;
 }
 
-.submit__button {
+.buttons__area {
+  display: flex;
+}
+
+.button {
   width: 30%;
   display: block;
   margin: 10px auto;
@@ -75,14 +88,24 @@ body {
   transition: transform .3s linear;
 }
 
-.submit__button:hover,
-.submit__button:focus {
+.button:hover,
+.button:focus {
   color: #fafaff;
 
   background-color: #234;
   box-shadow: 2px 2px 4px #dfd;
 
   transform: scale(.95);
+}
+
+.button:disabled {
+  color: #c0c0cc;
+
+  background-color: #fafaff;
+  border-color: transparent;
+  box-shadow: none;
+
+  transform: none;
 }
 
 .submit__button::after {
@@ -97,14 +120,16 @@ body {
   content: "Go!";
 }
 
-.submit__button:disabled {
-  color: #c0c0cc;
+.reset__button::after {
+  content: "Reset";
+}
 
-  background-color: #fafaff;
-  border-color: transparent;
-  box-shadow: none;
+.reset__button:hover::after {
+  content: "Really?";
+}
 
-  transform: none;
+.reset__button:disabled::after {
+  content: "Reset";
 }
 
 .thanks {

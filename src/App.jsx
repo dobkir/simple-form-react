@@ -15,13 +15,25 @@ function App() {
     confirmation: confirmation.value,
   };
 
+  const onReset = () => {
+    username.onReset();
+    email.onReset();
+    password.onReset();
+    confirmation.onReset();
+  }
+
   const onSubmit = (event) => {
     event.preventDefault();
     api(formData);
+    onReset();
   };
 
   return (
-    <form className="form" name="registration_form" onSubmit={onSubmit}>
+    <form
+      className="form"
+      name="registration_form"
+      onSubmit={onSubmit}
+      onReset={onReset}>
       <h1 className="form__title" > Register!</h1 >
       <ul>
         <li>
@@ -36,7 +48,7 @@ function App() {
             placeholder="Enter your name..."
             value={username.value}
             onChange={event => username.onChange(event)}
-            onBlur={event => username.onBlur(event)}
+            onBlur={username.onBlur}
           />
         </li>
         <li>
@@ -51,7 +63,7 @@ function App() {
             placeholder="Enter your email..."
             value={email.value}
             onChange={event => email.onChange(event)}
-            onBlur={event => email.onBlur(event)}
+            onBlur={email.onBlur}
           />
         </li>
         <li>
@@ -66,7 +78,7 @@ function App() {
             placeholder="Enter your password..."
             value={password.value}
             onChange={event => password.onChange(event)}
-            onBlur={event => password.onBlur(event)}
+            onBlur={password.onBlur}
           />
         </li>
         <li>
@@ -82,16 +94,24 @@ function App() {
             placeholder="Repeat your password..."
             value={confirmation.value}
             onChange={event => confirmation.onChange(event)}
-            onBlur={event => confirmation.onBlur(event)}
+            onBlur={confirmation.onBlur}
           />
         </li>
         <li>
-          <button className="submit__button" type="submit" disabled={
-            !username.inputValid
-            || !email.inputValid
-            || !password.inputValid
-            || (confirmation.value !== password.value)
-          }></button>
+          <div className="buttons__area">
+            <button className="button submit__button" type="submit" disabled={
+              !username.inputValid
+              || !email.inputValid
+              || !password.inputValid
+              || (confirmation.value !== password.value)
+            }></button>
+            <button className="button reset__button" type="reset" disabled={
+              !username.value
+              && !email.value
+              && !password.value
+              && !confirmation.value
+            }></button>
+          </div>
         </li>
       </ul>
 
