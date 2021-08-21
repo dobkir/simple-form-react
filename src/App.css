@@ -28,6 +28,22 @@ body {
   }
 }
 
+.spinner {
+  margin-right: -50%;
+
+  position: fixed;
+  top: 8rem;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 375px) {
+  .spinner {
+    top: 7.5rem;
+  }
+}
+
 .field__label {
   font-weight: 700;
   line-height: 1.7;

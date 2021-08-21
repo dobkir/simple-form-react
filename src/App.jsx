@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useInput } from "./customHooks/useInput";
-import { api } from "./api";
+import { Api as api } from "./Api";
 import "./App.css";
 
 function App() {
@@ -7,6 +8,11 @@ function App() {
   const email = useInput("", { isEmpty: true, minLength: 5, maxLength: 50, isEmailError: false });
   const password = useInput("", { isEmpty: true, minLength: 5, maxLength: 50 });
   const confirmation = useInput("", {});
+  const [isFetching, setFetching] = useState(false);
+
+  const toggleIsFetching = (toggle) => {
+    toggle ? setFetching(true) : setFetching(false);
+  };
 
   const formData = {
     username: username.value,
@@ -24,8 +30,8 @@ function App() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    api(formData);
-    onReset();
+    api(formData, toggleIsFetching);
+    setTimeout(onReset, 2000);
   };
 
   return (
@@ -34,7 +40,8 @@ function App() {
       name="registration_form"
       onSubmit={onSubmit}
       onReset={onReset}>
-      <h1 className="form__title" > Register!</h1 >
+      <h1 className="form__title">Register!</h1>
+      {isFetching && <img className="spinner" src="Spinner_iPhone-2.gif" alt="spinner" />}
       <ul>
         <li>
           <label className="field__label">
@@ -100,7 +107,8 @@ function App() {
         <li>
           <div className="buttons__area">
             <button className="button submit__button" type="submit" disabled={
-              !username.inputValid
+              isFetching
+              || !username.inputValid
               || !email.inputValid
               || !password.inputValid
               || (confirmation.value !== password.value)

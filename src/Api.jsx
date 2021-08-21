@@ -1,4 +1,5 @@
-export const api = (fetchedData) => {
+export const Api = (fetchedData, toggleIsFetching) => {
+  toggleIsFetching(true);
   fetch('https://api.jsonbin.io/v3/b', {
     method: 'POST',
     body: JSON.stringify({ fetchedData }),
@@ -26,6 +27,7 @@ export const api = (fetchedData) => {
           return `${key}: ${value}, \n`;
         }).join('')
       );
+      toggleIsFetching(false);
     })
     .catch(error => alert(`Oops, any problem here: ${error.name}. ${error.message}`));
 }

@@ -7,15 +7,16 @@ export const useInput = (initialValue, validations) => {
   const valid = useValidation(value, validations);
 
   const onChange = (event) => {
-    setValue(event.target.value)
+    setValue(event.target.value);
   };
 
   const onBlur = () => {
-    setVisited(true)
+    setVisited(true);
   };
 
   const onReset = () => {
-    setValue(initialValue)
+    setValue(initialValue);
+    setVisited(false);
   };
 
   return {
