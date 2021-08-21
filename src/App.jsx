@@ -86,7 +86,12 @@ function App() {
           />
         </li>
         <li>
-          <button className="submit__button" type="submit" disabled={!username.inputValid} ></button>
+          <button className="submit__button" type="submit" disabled={
+            !username.inputValid
+            || !email.inputValid
+            || !password.inputValid
+            || (confirmation.value !== password.value)
+          }></button>
         </li>
       </ul>
 

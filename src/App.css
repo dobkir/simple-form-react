@@ -93,11 +93,16 @@ body {
   content: "Faster!";
 }
 
+.submit__button:disabled::after {
+  content: "Go!";
+}
+
 .submit__button:disabled {
   color: #c0c0cc;
 
   background-color: #fafaff;
   border-color: transparent;
+  box-shadow: none;
 
   transform: none;
 }
