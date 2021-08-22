@@ -113,8 +113,7 @@ function App() {
         </li>
         <li>
           <label className="field__label">
-            Confirmation:
-            {(confirmation.isVisited &&
+            Confirmation: {(confirmation.isVisited &&
               (confirmation.value !== password.value))
               && <span className="error__message">Must match</span>}
           </label>

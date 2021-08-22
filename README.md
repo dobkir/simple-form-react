@@ -1,4 +1,4 @@
-# ![React JS simple form logo icon](https://github.com/dobkir/simple-form-react/tree/master/public/logo48.png) Simple registration form for ReactJS ![React JS simple form logo icon](https://github.com/dobkir/simple-form-react/tree/master/public/logo48.png)
+# ![React JS simple form logo icon](/public/logo48.png) Simple registration form for ReactJS ![React JS simple form logo icon](/public/logo48.png)
 
 [![Contributors][contributors-shield]][contributors-url]&nbsp;
 [![Forks][forks-shield]][forks-url]&nbsp;
@@ -24,7 +24,7 @@
 ![Main language][main-language-shield]
 
 - Others<br>
-![CSS3](https://img.shields.io/badge/CSS3-47.7%25-563d7c?logo=CSS3&logoColor=fff&style=for-the-badge)<br>
+![CSS3](https://img.shields.io/badge/CSS3-46.6%25-563d7c?logo=CSS3&logoColor=fff&style=for-the-badge)<br>
 ![HTML5](https://img.shields.io/badge/HTML5-4.3%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
 
 - Through:<br>
@@ -39,6 +39,7 @@
 
 It's a simple template of the registration form for ReactJS. 
 As a fake API for testing of a form data fetching to the server has been used JSONBIN.io. 
+To simplify development, two custom hooks have been created here.
 The form has validations for all the fields. All input is associated and dependent on the form local state. 
 Also used preloader, which appears at the time of sending / receiving data from the server. 
 The submit button is disabled after sending data to the server and before receiving a response from the server. 
