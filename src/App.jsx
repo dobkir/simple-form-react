@@ -26,7 +26,7 @@ function App() {
     email.onReset();
     password.onReset();
     confirmation.onReset();
-  }
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -41,15 +41,22 @@ function App() {
       onSubmit={onSubmit}
       onReset={onReset}>
       <h1 className="form__title">Register!</h1>
-      {isFetching && <img className="spinner" src="loading-spinner.gif" alt="spinner" />}
+      {isFetching && <img className="spinner" src="loading-spinner.gif" alt="img: spinning loader" />}
       <ul>
         <li>
           <label className="field__label">
-            Username: {(username.isVisited && (username.isEmpty || username.minLength || username.maxLength)) &&
-              <span className="error__message">{username.errorMessage}</span>}
+            Username: {(username.isVisited &&
+              (username.isEmpty
+                || username.minLength
+                || username.maxLength))
+              && <span className="error__message">{username.errorMessage}</span>}
           </label>
           <input
-            className={(username.isVisited && (username.isEmpty || username.minLength || username.maxLength)) ? "input invalid" : "input"}
+            className={(username.isVisited &&
+              (username.isEmpty
+                || username.minLength
+                || username.maxLength))
+              ? "input invalid" : "input"}
             name="username"
             type="text"
             placeholder="Enter your name..."
@@ -60,11 +67,20 @@ function App() {
         </li>
         <li>
           <label className="field__label">
-            E-mail: {(email.isVisited && (email.isEmpty || email.minLength || email.maxLength || email.isEmailError)) &&
-              <span className="error__message">{email.errorMessage}</span>}
+            E-mail: {(email.isVisited &&
+              (email.isEmpty
+                || email.minLength
+                || email.maxLength
+                || email.isEmailError))
+              && <span className="error__message">{email.errorMessage}</span>}
           </label>
           <input
-            className={(email.isVisited && (email.isEmpty || email.minLength || email.maxLength || email.isEmailError)) ? "input invalid" : "input"}
+            className={(email.isVisited &&
+              (email.isEmpty
+                || email.minLength
+                || email.maxLength
+                || email.isEmailError))
+              ? "input invalid" : "input"}
             name="email"
             type="text"
             placeholder="Enter your email..."
@@ -75,11 +91,18 @@ function App() {
         </li>
         <li>
           <label className="field__label">
-            Password: {(password.isVisited && (password.isEmpty || password.minLength || password.maxLength)) &&
-              <span className="error__message">{password.errorMessage}</span>}
+            Password: {(password.isVisited &&
+              (password.isEmpty
+                || password.minLength
+                || password.maxLength))
+              && <span className="error__message">{password.errorMessage}</span>}
           </label>
           <input
-            className={(password.isVisited && (password.isEmpty || password.minLength || password.maxLength)) ? "input invalid" : "input"}
+            className={(password.isVisited &&
+              (password.isEmpty
+                || password.minLength
+                || password.maxLength))
+              ? "input invalid" : "input"}
             name="password"
             type="password"
             placeholder="Enter your password..."
@@ -91,11 +114,14 @@ function App() {
         <li>
           <label className="field__label">
             Confirmation:
-            {(confirmation.isVisited && (confirmation.value !== password.value)) &&
-              <span className="error__message">Must match</span>}
+            {(confirmation.isVisited &&
+              (confirmation.value !== password.value))
+              && <span className="error__message">Must match</span>}
           </label>
           <input
-            className={(confirmation.isVisited && (confirmation.value !== password.value)) ? "input invalid" : "input"}
+            className={(confirmation.isVisited &&
+              (confirmation.value !== password.value))
+              ? "input invalid" : "input"}
             name="confirmation"
             type="password"
             placeholder="Repeat your password..."

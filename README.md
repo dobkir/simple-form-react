@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# ![React JS simple form logo icon](https://github.com/dobkir/simple-form-react/tree/master/public/logo48.png) Simple registration form for ReactJS ![React JS simple form logo icon](https://github.com/dobkir/simple-form-react/tree/master/public/logo48.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Contributors][contributors-shield]][contributors-url]&nbsp;
+[![Forks][forks-shield]][forks-url]&nbsp;
+[![Stargazers][stars-shield]][stars-url]&nbsp;
+[![Issues][issues-shield]][issues-url]&nbsp;
+[![MIT License][license-shield]][license-url]&nbsp;
+![Repository size][repo-size-shield]&nbsp;
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-## Available Scripts
+### Template preview
+![ The trailer of the Burger menu template][product-screenshot]&nbsp;
 
-In the project directory, you can run:
+<!-- TOOLS -->
+### Built With
 
-### `yarn start`
+- Framework<br>
+[![React](https://img.shields.io/badge/React-282c34?style=for-the-badge&logo=React&logoColor=61dafb)](https://reactjs.org/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Languages<br>
+![Languages][languages-shield]
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Main language<br>
+![Main language][main-language-shield]
 
-### `yarn test`
+- Others<br>
+![CSS3](https://img.shields.io/badge/CSS3-47.7%25-563d7c?logo=CSS3&logoColor=fff&style=for-the-badge)<br>
+![HTML5](https://img.shields.io/badge/HTML5-4.3%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Through:<br>
+[![{}JSONBIN.io](https://img.shields.io/badge/JSONBIN-2568ed?style=for-the-badge&logo=JSONBIN&logoColor=2568ed)](https://jsonbin.io/)<br>
 
-### `yarn build`
+- IDE<br>
+![VSCode](https://img.icons8.com/color/48/000000/visual-studio-code-2019.png)<br>
+ [VSCode](https://code.visualstudio.com/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- WORK DESCRIPTION -->
+## Work description
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+It's a simple template of the registration form for ReactJS. 
+As a fake API for testing of a form data fetching to the server has been used JSONBIN.io. 
+The form has validations for all the fields. All input is associated and dependent on the form local state. 
+Also used preloader, which appears at the time of sending / receiving data from the server. 
+The submit button is disabled after sending data to the server and before receiving a response from the server. 
+There is a special field at the bottom of the form in which you can see the data that is entered into the form. 
+This field is very useful for debugging, but, of course, it shouldn't be in the client version.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<!-- GETTING STARTED -->
+## Running on your local machine
+To get a local copy up and running follow these simple steps.
 
-### `yarn eject`
+- Git
+```
+sudo apt-get install git
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Clone this repository on local machine:
+```
+git clone https://github.com/dobkir/simple-form-react.git
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Install Node Package Manager on the directory with the cloning repository
+```
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Run this template on your local machine
+```sh
+npm start
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+or
 
-## Learn More
+yarn start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<!-- LICENSE -->
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Distributed under the MIT License. See [LICENSE](license.txt) for more information.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<!-- CONTACT -->
+## Contact
 
-### Analyzing the Bundle Size
+[![Gmail Badge](https://img.shields.io/badge/Gmail-d14836?style=for-the-badge&logo=Gmail&logoColor=white&link=mailto:p.kirillov2020@gmail.com)](mailto:p.kirillov2020@gmail.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Project Link: [https://github.com/dobkir/simple-form-react](https://github.com/dobkir/simple-form-react)
 
-### Making a Progressive Web App
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+- [ICONS8](https://icons8.com/)
+- [Img Shields](https://shields.io)
+- [Choose an Open Source License](https://choosealicense.com)
+- [GitHub Pages](https://pages.github.com)
+- [ReactJS](https://github.com/facebook/react/)
+- [{}JSONBIN.io - free fake api](https://jsonbin.io/)
+- The design idea is taken from here: [https://codepen.io/Vintharas/pen/guKbf](https://codepen.io/Vintharas/pen/guKbf)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/dobkir/simple-form-react.svg?style=for-the-badge
+[contributors-url]: https://github.com/dobkir/simple-form-react/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/dobkir/simple-form-react.svg?style=for-the-badge
+[forks-url]: https://github.com/dobkir/simple-form-react/network/members
+[stars-shield]: https://img.shields.io/github/stars/dobkir/simple-form-react.svg?style=for-the-badge
+[stars-url]: https://github.com/dobkir/simple-form-react/stargazers
+[issues-shield]: https://img.shields.io/github/issues/dobkir/simple-form-react.svg?style=for-the-badge
+[issues-url]: https://github.com/dobkir/simple-form-react/issues
+[license-shield]: https://img.shields.io/github/license/dobkir/simple-form-react.svg?style=for-the-badge
+[license-url]: https://github.com/dobkir/simple-form-react/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/pavel-kirillov-dobkir
+[repo-size-shield]: https://img.shields.io/github/repo-size/dobkir/simple-form-react.svg?style=for-the-badge
+[languages-shield]: https://img.shields.io/github/languages/count/dobkir/simple-form-react.svg?style=for-the-badge
+[main-language-shield]: https://img.shields.io/github/languages/top/dobkir/simple-form-react.svg?style=for-the-badge&color=f1e05a
+[product-screenshot]: https://github.com/dobkir/trailers/blob/master/simple-form-react_trailer/simple-form-react_trailer.gif

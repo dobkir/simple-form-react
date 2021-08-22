@@ -21,13 +21,13 @@ export const api = (fetchedData, toggleIsFetching) => {
     })
     // Let's check what form data was submitted to the server (remove it in the work version)
     .then(data => {
-      alert(
-        "The server received the following data from you: \n" +
-        Object.entries(data.record.fetchedData).map(([key, value]) => {
-          return `${key}: ${value}, \n`;
-        }).join('')
-      );
+      /*   alert(
+          "The server received the following data from you: \n" +
+          Object.entries(data.record.fetchedData).map(([key, value]) => {
+            return `${key}: ${value}, \n`;
+          }).join('')
+        ); */
       toggleIsFetching(false);
     })
     .catch(error => alert(`Oops, any problem here: ${error.name}. ${error.message}`));
-}
+};
